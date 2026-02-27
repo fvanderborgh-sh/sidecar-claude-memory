@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "Check if significant work was done this session (code changes, debugging, PRs, discoveries, new knowledge). If yes, remind the user: 'Run /memory-consolidate to save what we learned this session.' If this was a trivial session (just reading files, answering quick questions, or brief lookups), skip the reminder."
+            "prompt": "Check if significant work was done this session (code changes, debugging, PRs, discoveries, new knowledge). If yes, remind the user: 'Run /sidecar-claude-memory:memory-consolidate to save what we learned this session.' If this was a trivial session (just reading files, answering quick questions, or brief lookups), skip the reminder."
           }
         ]
       }

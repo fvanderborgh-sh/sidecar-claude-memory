@@ -32,7 +32,7 @@ Conversation Input
 ### Option 1: Clone and use as plugin directory
 
 ```bash
-git clone https://github.com/sidecarhealth/sidecar-claude-memory.git ~/Code/sidecar-claude-memory
+git clone https://github.com/fvanderborgh-sh/sidecar-claude-memory.git ~/Code/sidecar-claude-memory
 ```
 
 Then add to your Claude Code settings (`~/.claude/settings.json`):
@@ -53,7 +53,7 @@ claude --plugin-dir ~/Code/sidecar-claude-memory
 
 1. Install the plugin (see above)
 2. Open Claude Code in your project
-3. Run `/memory-init`
+3. Run `/sidecar-claude-memory:memory-init`
 4. Answer the setup questions (your name, project description)
 5. Start working normally
 
@@ -61,7 +61,7 @@ That's it. Claude will read your memory at the start of each conversation and th
 
 ## Commands
 
-### `/memory-init`
+### `/sidecar-claude-memory:memory-init`
 
 Bootstrap the memory system for the current project. Creates the directory structure, starter files, and optionally injects memory instructions into your CLAUDE.md.
 
@@ -80,7 +80,7 @@ Creates:
 └── procedures/         # Validated step-by-step recipes
 ```
 
-### `/memory-consolidate`
+### `/sidecar-claude-memory:memory-consolidate`
 
 Run the end-of-session consolidation protocol. This is the "sleep" process:
 
@@ -91,7 +91,7 @@ Run the end-of-session consolidation protocol. This is the "sleep" process:
 5. Updates the MEMORY.md index
 6. Runs decay checks on old episodes
 
-### `/memory-status`
+### `/sidecar-claude-memory:memory-status`
 
 Show memory system statistics: entry counts, utilization, and health warnings.
 
@@ -118,7 +118,7 @@ As Claude encounters new information, it mentally tags entries for consolidation
 
 ### Consolidation (conversation end)
 
-The Stop hook reminds you to run `/memory-consolidate`. This scores each piece of work by salience (1-5), promotes important entries to long-term storage, and prunes stale data.
+The Stop hook reminds you to run `/sidecar-claude-memory:memory-consolidate`. This scores each piece of work by salience (1-5), promotes important entries to long-term storage, and prunes stale data.
 
 ### Decay
 

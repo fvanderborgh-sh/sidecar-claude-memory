@@ -78,36 +78,60 @@ Use AskUserQuestion to ask if they want to add the memory system instructions to
 2. **Add to global CLAUDE.md** - adds to `~/.claude/CLAUDE.md` (applies to all projects)
 3. **Skip** - don't modify any CLAUDE.md (user will manually configure)
 
-If they choose option 1 or 2, append the following block to the chosen CLAUDE.md:
+If they choose option 1 or 2, append the following block to the chosen CLAUDE.md (replace `<PROJECT_HASH>` with the actual hash computed in Step 1):
 
 ```markdown
 # Memory System
 
-You have a persistent memory directory at `~/.claude/projects/<PROJECT_HASH>/memory/`. Its contents persist across conversations.
+You have a persistent memory system that preserves knowledge across conversations using psychology-inspired multi-store architecture (Atkinson-Shiffrin model).
 
-As you work, consult your memory files to build on previous experience.
+Your memory directory is at `~/.claude/projects/<PROJECT_HASH>/memory/`. Its contents persist across conversations.
 
 ## At Conversation Start
-1. Read `working.md` for recent session context
-2. Load relevant semantic files based on the topic at hand
-3. Check for applicable procedures or episodes
+
+1. **Check the clock**: Run `date "+%Y-%m-%d %H:%M %Z"` for session timestamps.
+2. **Read immediately**: `working.md` - the 7-day active session log.
+3. **Load contextually** based on what the user is working on:
+   - Code patterns/architecture -> `semantic/codebase.md`
+   - Business logic/features -> `semantic/domain.md`
+   - Build/CLI/environment -> `semantic/tools.md`
+   - Team context -> `semantic/people.md`
+   - Past events -> relevant `episodes/` file
+   - Validated recipes -> relevant `procedures/` file
 
 ## During Conversation
-- When learning something new, note it for consolidation
-- When corrected, update semantic memory immediately
-- When referencing episodes, bump their access count
+
+- When encountering a familiar pattern, check if a procedure or episode exists
+- When learning something new, mentally tag it for consolidation (salience + tags)
+- When the user corrects you, update semantic memory immediately (reconsolidation)
+- When referencing an episode, bump its `access_count` and `last_accessed`
 
 ## At Conversation End
-Run `/memory-consolidate` or manually:
-1. Add today's work to `working.md` with salience scores and tags
-2. Prune entries older than 7 days
-3. Consolidate expiring entries (4-5 -> episodes, 3 -> semantic, 1-2 -> forget)
-4. Update MEMORY.md index
+
+Run `/sidecar-claude-memory:memory-consolidate` or manually execute:
+1. **Add** today's work to `working.md` with salience scores (1-5) and tags
+2. **Prune** entries older than 7 days
+3. **Consolidate** expiring entries:
+   - Salience 4-5 -> Create episodic memory in `episodes/YYYY-MM-DD-<topic>.md`
+   - Salience 3 -> Extract key facts into relevant `semantic/` file
+   - Salience 1-2 -> Let it fade (delete without encoding)
+4. **Pattern detect**: If 2+ entries share tags, create/update semantic or procedural entry
+5. **Update index**: Refresh `MEMORY.md` - Hot Knowledge, Recent Episodes
+6. **Decay check**: Episodes >60 days old with access_count < 3 -> extract to semantic, delete
+
+## Salience Scoring
+
+| Score | Criteria | Example |
+|-------|----------|---------|
+| 5 | User said "remember this" / Major discovery | Critical workaround found |
+| 4 | Solved a real problem / Non-obvious pattern | Cross-module dependency |
+| 3 | Completed standard task / Routine but useful | Created a PR, ran a review |
+| 2 | Minor interaction / Already documented | Read a file, answered a question |
+| 1 | Trivial / One-off / Won't recur | Typo fix, simple lookup |
 
 ## Memory Commands
-- `/memory-init` - Bootstrap the memory system (you already did this)
-- `/memory-consolidate` - Run end-of-session consolidation protocol
-- `/memory-status` - Show memory system statistics
+- `/sidecar-claude-memory:memory-consolidate` - Run end-of-session consolidation protocol
+- `/sidecar-claude-memory:memory-status` - Show memory system statistics
 ```
 
 **Important**: Show the user exactly what will be added and get confirmation before modifying any CLAUDE.md file.
@@ -135,6 +159,6 @@ CLAUDE.md: <updated/skipped>
 
 Next steps:
 1. Start working normally - Claude will read your memory at conversation start
-2. Run /memory-consolidate at the end of sessions to save what you learned
-3. Run /memory-status anytime to check memory utilization
+2. Run /sidecar-claude-memory:memory-consolidate at the end of sessions to save what you learned
+3. Run /sidecar-claude-memory:memory-status anytime to check memory utilization
 ```
