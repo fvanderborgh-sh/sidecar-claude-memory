@@ -1,0 +1,15 @@
+# Tools & Workflow Knowledge
+
+CLI tools, git quirks, CI/CD patterns, and environment setup for {{PROJECT_NAME}}.
+
+## Build System
+(Document build commands, dependency order, and common pitfalls)
+
+## Test Commands
+(List test runners, flags, and patterns)
+
+## CLI Workarounds
+(Track tool-specific bugs, missing features, and their workarounds)
+
+## Environment Setup
+(Required env vars, secrets, and configuration)

@@ -1,0 +1,10 @@
+# Working Memory
+
+Active scratchpad - 7-day rolling window. Entries expire via consolidation protocol.
+
+Format: `### YYYY-MM-DD (HH:MM TZ)` headers with bullet points, salience scores, and tags.
+
+### {{INIT_DATE}}
+- **Memory system initialized** for {{PROJECT_NAME}}
+- Created semantic files: codebase, domain, tools, people, user
+- [salience: 3] [tags: meta, memory-system, setup]

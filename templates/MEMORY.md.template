@@ -1,0 +1,56 @@
+# Memory Index
+
+## Quick Context
+- **User**: {{USER_NAME}}
+- **Project**: {{PROJECT_NAME}} - {{PROJECT_DESCRIPTION}}
+- **Current focus**: (update as work progresses)
+- **Recent**: (auto-populated by consolidation)
+
+## Memory Architecture
+
+This system uses psychology-inspired multi-store memory (Atkinson-Shiffrin model):
+
+| Store | Location | Purpose | Lifespan |
+|-------|----------|---------|----------|
+| Working | `working.md` | Active session log | 7-day rolling |
+| Episodic | `episodes/` | Significant events with context | 60 days (access-gated) |
+| Semantic | `semantic/` | Factual knowledge by domain | Permanent |
+| Procedural | `procedures/` | Validated step-by-step recipes | Permanent (versioned) |
+
+## Semantic Files (factual knowledge)
+- `semantic/codebase.md` - Code patterns, architecture, conventions
+- `semantic/domain.md` - Business logic, product concepts
+- `semantic/tools.md` - CLI tools, build system, CI/CD
+- `semantic/people.md` - Team members, roles, working patterns
+- `semantic/user.md` - User preferences, work style
+
+## Procedures (how-to recipes)
+(Add validated step-by-step procedures as you discover them)
+
+## Active Episodes (recent significant events)
+(Auto-populated by consolidation protocol)
+
+## Hot Knowledge (most accessed/referenced)
+(Add frequently-referenced facts here for fast access)
+
+## Consolidation Protocol
+
+At conversation end, execute:
+1. **Add** today's work to `working.md` with salience scores and tags
+2. **Prune** working memory entries older than 7 days
+3. **Consolidate** expiring entries: salience 4-5 -> episodic, 3 -> semantic, 1-2 -> forget
+4. **Pattern detect**: 2+ entries sharing tags -> check if semantic/procedure update needed
+5. **Update** this index: Hot Knowledge, Recent Episodes
+6. **Decay check**: Episodes >60 days with access_count <3 -> extract to semantic, delete
+
+## Retrieval Protocol
+
+At conversation start:
+1. **Always load**: This index + `working.md`
+2. **Contextual load** based on topic:
+   - Code patterns -> `semantic/codebase.md`
+   - Business logic -> `semantic/domain.md`
+   - Build/tools -> `semantic/tools.md`
+   - Team context -> `semantic/people.md`
+   - Past event -> relevant episode file
+3. **During conversation**: When encountering familiar patterns, check procedures/episodes

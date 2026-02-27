@@ -1,0 +1,11 @@
+{
+  "name": "sidecar-claude-memory",
+  "description": "Psychology-inspired persistent memory system for Claude Code. Gives Claude working, episodic, semantic, and procedural memory across conversations.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Forrest Van Der Borgh"
+  },
+  "repository": "https://github.com/sidecarhealth/sidecar-claude-memory",
+  "license": "MIT",
+  "keywords": ["memory", "persistence", "context", "multi-store", "psychology"]
+}

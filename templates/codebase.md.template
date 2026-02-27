@@ -1,0 +1,15 @@
+# Codebase Knowledge
+
+Extracted technical patterns, architecture quirks, and code conventions for {{PROJECT_NAME}}.
+
+## Architecture Overview
+(Document the project's architecture, key patterns, and conventions here)
+
+## Key Patterns
+(Add recurring code patterns, naming conventions, and anti-patterns to avoid)
+
+## Quality Gates
+(Document linting rules, test requirements, and merge criteria)
+
+## Project Structure
+(Map out important directories, entry points, and configuration files)
