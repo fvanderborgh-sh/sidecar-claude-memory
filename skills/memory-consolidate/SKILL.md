@@ -30,7 +30,19 @@ Read these files:
 
 ### Step 4: Add Today's Session Entries
 
-Review the current conversation and identify significant work done. For each piece of work, add an entry to `working.md` with:
+**Deduplication check — do this first:**
+
+Read `$MEMORY_ROOT/working.md` and check for entries with today's date:
+```bash
+grep "^### $(date +%Y-%m-%d)" "$MEMORY_ROOT/working.md"
+```
+
+If entries for today exist, read them carefully and compare against this session's work:
+- If an entry already covers the same work (same topic, overlapping details) → **skip it**, do not write a duplicate.
+- If today's entries cover *different* work → you may still append entries for the uncovered work only.
+- If no today entries exist → proceed normally with all entries.
+
+Now, review the current conversation and identify significant work done. For each piece of work, add an entry to `working.md` with:
 
 ```markdown
 ### YYYY-MM-DD (HH:MM TZ)
@@ -63,6 +75,12 @@ For each entry being pruned from working memory:
 # Create episodes directory if needed
 mkdir -p "$MEMORY_ROOT/episodes"
 ```
+Before creating an episode file, check if it already exists:
+```bash
+ls "$MEMORY_ROOT/episodes/YYYY-MM-DD-<topic-slug>.md" 2>/dev/null
+```
+If it exists, do **not** overwrite. Instead append new learnings under an `## Addendum YYYY-MM-DD` section at the end and increment `access_count` by 1. If it does not exist, create it with the full template.
+
 Write to `$MEMORY_ROOT/episodes/YYYY-MM-DD-<topic-slug>.md`:
 ```markdown
 # Episode: <Descriptive Title>
